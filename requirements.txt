@@ -1,0 +1,6 @@
+# cat requirements.txt 
+
+numpy
+scipy
+matplotlib
+fbm 
