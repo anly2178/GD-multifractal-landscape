@@ -1,9 +1,5 @@
 # Optimization on multifractal loss landscapes explains a diverse range of geometrical and dynamical properties of deep learning
 
-![MBS](doc/images/total_landscape.png)
-
-![trajectory](doc/images/trajectory.png)
-
 ## Requirements
 
 To install requirements:
