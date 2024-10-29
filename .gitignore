@@ -1,1 +1,6 @@
 .DS_Store
+results/
+trained_nets/
+data/FashionMNIST/
+data/CIFAR10/
+__pycache__/

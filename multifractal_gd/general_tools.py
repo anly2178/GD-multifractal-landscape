@@ -1,5 +1,6 @@
 import numpy as np
 from scipy.special import gamma
+from scipy.integrate import quad
 
 import matplotlib.pyplot as plt
 from matplotlib.collections import LineCollection

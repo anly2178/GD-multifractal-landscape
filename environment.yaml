@@ -1,0 +1,11 @@
+# environment.yaml
+
+name: GD_multifractal
+channels:
+  - conda-forge
+dependencies:
+  - python==3.12.7
+  - anaconda
+  - pip
+  - pip:
+    - -r file:requirements.txt
