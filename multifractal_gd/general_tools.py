@@ -1,7 +1,4 @@
 import numpy as np
-from scipy.special import gamma
-from scipy.integrate import quad
-
 import matplotlib.pyplot as plt
 from matplotlib.collections import LineCollection
 
@@ -25,37 +22,6 @@ def squarify(fig):
         axs = w*(t-b)
         l = (1.-axs/h)/2
         fig.subplots_adjust(bottom=l, top=1-l)
-
-
-def mittag_leffler(z, a):
-    """Mittag-Leffler function, E_{a,b}(z), for 0 < a < 1 and b = 0, 
-
-    Args:
-        z (float): Argument of Mittag-Leffler function.
-        a (float): Order of Mittag-Leffler function.
-
-    Returns:
-        float: Value of E_{a, 0}(z).
-    """
-    z = np.atleast_1d(z)
-    if a == 0:
-        return 1/(1 - z)
-    elif a == 1:
-        return np.exp(z)
-    elif a > 1 or all(z > 0):
-        k = np.arange(100)
-        return np.polynomial.polynomial.polyval(z, 1/gamma(a*k + 1))
-    # a helper for tricky case, from Gorenflo et al. (2002)
-    def _mittag_leffler(z, a):
-        if z < 0:
-            def f(x): return (np.exp(-x*(-z)**(1/a)) * x**(a-1)*np.sin(np.pi*a)
-                              / (x**(2*a) + 2*x**a*np.cos(np.pi*a) + 1))
-            return 1/np.pi * quad(f, 0, np.inf)[0]
-        elif z == 0:
-            return 1
-        else:
-            return mittag_leffler(z, a)
-    return np.vectorize(_mittag_leffler)(z, a)
 
 
 def multiline(xs, ys, c, ax=None, **kwargs):

@@ -13,7 +13,7 @@ import copy
 import os
 import re
 from models.resnet import ResNet18_cifar, ResNet18_mnist
-from models.vgg import VGG_cifar, VGG_mnist
+from models.vgg import VGG_cifar, VGG_mnist, VGG_cifar_nd, VGG_mnist_nd
 
 def get_dataloaders(batch_size, dataset):
     if dataset == 'cifar10':
@@ -135,6 +135,7 @@ def main(args=None):
     parser.add_argument('--dataset', default='fashionmnist', type=str, help='dataset: cifar10 | fashionmnist')
     # # model parameters
     parser.add_argument('--model', '-m', default='vgg', help='model: vgg | resnet')
+    parser.add_argument('--no_drop', default='n', help='Remove dropout layers: y | n')
     parser.add_argument('--load_model', type=str, help='path to pretrained model')
     # visualisation parameters
     parser.add_argument('--visualize', default='n', type=str, help='whether to visualise the loss landscape: y | n')
@@ -157,9 +158,15 @@ def main(args=None):
     # Create model
     if args.model == 'vgg':
         if args.dataset == 'fashionmnist':
-            net = VGG_mnist()
+            if args.no_drop == 'y':
+                net = VGG_mnist_nd()
+            elif args.no_drop == 'n':
+                net = VGG_mnist()
         elif args.dataset == 'cifar10':
-            net = VGG_cifar()
+            if args.no_drop == 'y':
+                net = VGG_cifar_nd()
+            elif args.no_drop == 'n':
+                net = VGG_cifar()
     elif args.model == 'resnet':
         if args.dataset == 'fashionmnist':
             net = ResNet18_mnist()
@@ -250,7 +257,7 @@ def main(args=None):
                 epoch = int(nums_in_tail[0])
             np.save(head + '/loss_landscape_' + str(epoch) + '_' + str(args.interpolate) + '_' + train_or_eval + '_' + shuffle + '.npy', L)
         else:
-            np.save('trained_nets/' + save_folder + '/loss_landscape_' + str(epoch) + + '_' + str(args.interpolate) + '_' + train_or_eval + '_' + shuffle + '.npy', L)
+            np.save('trained_nets/' + save_folder + '/loss_landscape_' + str(epoch) + '_' + str(args.interpolate) + '_' + train_or_eval + '_' + shuffle + '.npy', L)
 
 if __name__ == '__main__':
     main()

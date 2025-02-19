@@ -21,6 +21,10 @@ torchvision 0.17.2
 plotly 5.24.1
 nbformat 5.10.4
 tqdm 4.66.5
+jax 0.5.0
+jaxlib 0.5.0
+pymittagleffler 0.1.3
+opentsne 1.0.2
 ```
 
 ## Installation guide
@@ -46,4 +50,4 @@ pip install -r requirements.txt
 
 ## Demo and instructions
 
-The code for simulations and plots that reproduce the results of the paper are included in the Jupyter notebook `demo.ipynb`. The expected run time is approximately 45 minutes, excluding the training of neural networks and the subsequent visualization of their loss landscapes. Each run of network training and visualization may take up to 24 hours with a standard computer. The examples presented in the demo are instructive of how to use the codes in the repository, and can be easily adapted for further exploration.
+The code for simulations and plots that reproduce the results of the paper are included in the Jupyter notebook `demo.ipynb`. The expected run time is approximately 45 minutes, excluding the training of neural networks and any subsequent visualization of their loss landscapes. Each run of network training and visualization using `LL_visualisation.py` may take up to 24 hours with a standard computer. Each run of network training using `train_supplementary.py` may take approximately 1 hour with a standard computer. The examples presented in the demo are instructive of how to use the codes in the repository, and can be easily adapted for further exploration.

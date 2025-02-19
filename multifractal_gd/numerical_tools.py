@@ -7,8 +7,7 @@ def integrate_overdamped_FLE(x0, T, eta, H, beta, gradient, seed=None):
         np.random.seed(seed)
     alpha = 2-2*H
     coeff_1 = eta/(G(2*H-1) * G(3-2*H))
-    # coeff_2 = ( eta * G(3-alpha) / ( gamma * H * (2*H-1) * G(1+alpha) * G(1-alpha)**2 ) )**(-1/2)
-    coeff_2 = np.sqrt(eta * G(2*H+1) / (beta * H * (2*H-1) * G(3-2*H) * G(2*H-1)**2) )
+    coeff_2 = eta * np.sqrt(2 / (beta * G(3-2*H) * G(2*H-1)) )
     B = fbm(n=T, hurst=1-H, length=T, method='daviesharte')
     
     gradient_history = np.zeros(T)
@@ -20,7 +19,7 @@ def integrate_overdamped_FLE(x0, T, eta, H, beta, gradient, seed=None):
     for j in range(1,T+1):
         gradient_history[j-1] = gradient(trajectory[j-1])
         sum_term = np.dot(gradient_history[:j], history_weights[T-j:])
-        trajectory[j] = x0 - eta * (coeff_1 * sum_term + coeff_2 * B[j])
+        trajectory[j] = x0 - coeff_1 * sum_term - coeff_2 * B[j]
     return trajectory
 
 def calculate_TAMSD(positions, waiting_times, tau, windowsize):
